@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction } from 'discord.js';
-import { enqueueSong } from '../player';
+import { enqueueSong } from '../player.js';
 
 export const data = new SlashCommandBuilder()
     .setName('search')

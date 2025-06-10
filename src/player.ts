@@ -1,8 +1,8 @@
 import { AudioPlayerStatus, createAudioPlayer, createAudioResource, joinVoiceChannel } from "@discordjs/voice";
 import { ChatInputCommandInteraction, GuildMember } from "discord.js";
 import { spawn } from "child_process";
-import * as logger from './logger';
-import { GuildQueue, Song } from "./types";
+import * as logger from './logger.js';
+import { GuildQueue, Song } from "./types.js";
 
 // The state of all server queues now lives here, in the player module.
 export const serverQueues = new Map<string, GuildQueue>();

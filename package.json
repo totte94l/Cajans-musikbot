@@ -1,12 +1,15 @@
 {
   "name": "cajans_musikbot",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A Discord Music Bot",
+  "main": "dist/app.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node src/app.ts",
-    "build": "tsc"
+    "dev": "node --loader ts-node/esm src/app.ts",
+    "build": "tsc",
+    "start": "node dist/app.js",
+    "deploy:commands": "node --loader ts-node/esm src/deploy-commands.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",

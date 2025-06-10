@@ -2,6 +2,11 @@ import { SlashCommandBuilder, REST, Routes } from 'discord.js';
 import dotenv from 'dotenv';
 import * as fs from 'fs';
 import * as path from 'path';
+import { fileURLToPath, pathToFileURL } from 'url';
+
+// --- ESM replacement for __dirname ---
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 dotenv.config();
 
@@ -12,17 +17,15 @@ interface CommandModule {
 
 const commands = [];
 const commandsPath = path.join(__dirname, 'commands');
-const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.ts') || file.endsWith('.js'));
+const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js') || file.endsWith('.ts'));
 
 for (const file of commandFiles) {
     const filePath = path.join(commandsPath, file);
-
-    const command = require(filePath) as CommandModule;
+    const fileUrl = pathToFileURL(filePath).href;
+    const command = await import(fileUrl) as CommandModule;
 
     if ('data' in command && 'execute' in command) {
         commands.push(command.data.toJSON());
-    } else {
-        console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
     }
 }
 

@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction, EmbedBuilder } from 'discord.js';
-import { GuildQueue } from '../types';
+import { GuildQueue } from '../types.js';
 
 export const data = new SlashCommandBuilder()
     .setName('queue')
