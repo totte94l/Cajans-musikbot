@@ -1,5 +1,3 @@
-// src/logger.ts
-
 // ANSI escape codes for colors to make logs more readable
 const colors = {
     info: '\x1b[36m', // Cyan
