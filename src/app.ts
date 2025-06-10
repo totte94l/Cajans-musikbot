@@ -204,21 +204,21 @@ client.on('messageCreate', async (message: Message) => {
             case 'about':
                 const aboutEmbed = new EmbedBuilder()
                     .setColor('#facc15')
-                    .setTitle('Om Musikbot')
+                    .setTitle('About Musikbot')
                     .setAuthor({
                         name: 'Cajan', //
                         iconURL: 'https://avatars.githubusercontent.com/u/3718372?v=4',
                         url: 'https://github.com/totte94'
                     })
-                    .setDescription('Detta är ett passionsprojekt för att bygga en fullt fungerande musikbot i Discord med TypeScript och Node.js.')
+                    .setDescription('This is a passion project to build a fully functional music bot in Discord using TypeScript and Node.js.')
                     .addFields(
                         { name: 'Version', value: '1.0.0', inline: true },
-                        { name: 'Skapare', value: 'Cajan', inline: true },
-                        { name: 'GitHub Repo', value: '[Klicka här](https://github.com/totte94l)' }
+                        { name: 'Creator', value: 'Cajan', inline: true },
+                        { name: 'GitHub Repo', value: '[Click here](https://github.com/totte94l)' }
                     )
                     .setImage('https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/Flag_of_Sweden.svg/1200px-Flag_of_Sweden.svg.png')
                     .setTimestamp()
-                    .setFooter({ text: 'Tack för att du använder botten!', iconURL: client.user?.displayAvatarURL() });
+                    .setFooter({ text: 'Thanks for using the bot!', iconURL: client.user?.displayAvatarURL() });
 
                 if (message.channel.isTextBased()) {
                     if (message.channel.type === ChannelType.GuildText) {
