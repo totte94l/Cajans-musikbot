@@ -18,7 +18,7 @@ RUN pnpm install --frozen-lockfile
 COPY . .
 
 # Compile the TypeScript code
-RUN pnpm run build
+RUN pnpm build
 
 RUN ls -R /app
 
