@@ -214,7 +214,7 @@ client.on('messageCreate', async (message: Message) => {
                     .addFields(
                         { name: 'Version', value: '1.0.0', inline: true },
                         { name: 'Creator', value: 'Cajan', inline: true },
-                        { name: 'GitHub Repo', value: '[Click here](https://github.com/totte94l)' }
+                        { name: 'GitHub Repo', value: '[Click here](https://github.com/totte94l/Cajans-musikbot)' }
                     )
                     .setImage('https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/Flag_of_Sweden.svg/1200px-Flag_of_Sweden.svg.png')
                     .setTimestamp()
