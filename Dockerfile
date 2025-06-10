@@ -20,8 +20,6 @@ COPY . .
 # Compile the TypeScript code
 RUN pnpm build
 
-RUN ls -R /app
-
 # --- Stage 2: Production ---
 # This stage creates the final, lean image with only what's needed to run the bot
 FROM node:20-alpine
