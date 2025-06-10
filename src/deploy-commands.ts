@@ -10,6 +10,10 @@ const __dirname = path.dirname(__filename);
 
 dotenv.config();
 
+const token = process.env.DISCORD_TOKEN!;
+const clientId = process.env.CLIENT_ID!;
+const guildId = process.env.GUILD_ID; // This one is optional, for prod you might want to use application commands instead
+
 interface CommandModule {
     data: SlashCommandBuilder;
     execute: Function;
@@ -33,14 +37,26 @@ const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN!);
 
 (async () => {
     try {
-        console.log(`Started refreshing ${commands.length} application (/) commands.`);
+        if (guildId) {
+            // --- DEVELOPMENT MODE ---
+            // Registering commands to a specific guild.
+            console.log(`Started refreshing ${commands.length} application (/) commands for guild: ${guildId}`);
+            await rest.put(
+                Routes.applicationGuildCommands(clientId, guildId),
+                { body: commands },
+            );
+            console.log(`Successfully reloaded commands for guild: ${guildId}`);
 
-        const data: any = await rest.put(
-            Routes.applicationGuildCommands(process.env.CLIENT_ID!, process.env.GUILD_ID!),
-            { body: commands },
-        );
-
-        console.log(`Successfully reloaded ${data.length} application (/) commands.`);
+        } else {
+            // --- PRODUCTION MODE ---
+            // Registering commands globally.
+            console.log(`Started refreshing ${commands.length} application (/) commands globally.`);
+            await rest.put(
+                Routes.applicationCommands(clientId),
+                { body: commands },
+            );
+            console.log(`Successfully reloaded commands globally.`);
+        }
     } catch (error) {
         console.error(error);
     }

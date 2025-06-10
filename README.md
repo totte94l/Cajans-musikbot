@@ -1,7 +1,4 @@
-
 # Cajan's Musikbot 🎵
-
-  
 
 A modern, self-hosted Discord music bot built with Node.js and TypeScript. It uses slash commands and streams high-quality audio from YouTube and other sources directly into your voice channel.
 
@@ -9,215 +6,126 @@ This project has been fully refactored to use the latest `discord.js` v14 featur
 
 ## Features
 
--  **Modern Slash Commands:** Easy and intuitive to use.
-
--  **High-Quality Audio:** Uses `yt-dlp` for the best possible audio streaming.
-
--  **Queue System:** Add multiple songs and see what's coming up next.
-
--  **Built with TypeScript:** Type-safe and maintainable code.
-
--  **Modular Command Handler:** Easily add or edit commands.
+  - **Modern Slash Commands:** Easy and intuitive to use.
+  - **High-Quality Audio:** Uses `yt-dlp` for the best possible audio streaming.
+  - **Queue System:** Add multiple songs and see what's coming up next.
+  - **Built with TypeScript:** Type-safe and maintainable code.
+  - **Modular Command Handler:** Easily add or edit commands.
 
 ### Commands
 
--  `/play <url>`: Plays a song from a YouTube or SoundCloud URL.
+  - `/play <url>`: Plays a song from a YouTube or SoundCloud URL.
+  - `/search <query>`: Searches YouTube for a song and adds it to the queue.
+  - `/skip`: Skips the currently playing song.
+  - `/queue`: Displays the current music queue.
+  - `/stop`: Stops playback, clears the queue, and disconnects the bot.
+  - `/help`: Shows a list of all available commands.
+  - `/about`: Shows information about the bot.
 
--  `/search <query>`: Searches YouTube for a song and adds it to the queue.
+-----
 
--  `/skip`: Skips the currently playing song.
+## 🚀 Setup and Usage
 
--  `/queue`: Displays the current music queue.
+This guide will walk you through the complete setup process.
 
--  `/stop`: Stops playback, clears the queue, and disconnects the bot.
+### Step 1: Clone & Install Dependencies
 
--  `/help`: Shows a list of all available commands.
+First, clone this repository to your local machine, navigate into the directory, and install the necessary packages.
 
--  `/about`: Shows information about the bot.
-
-----------
-
-
-## 🚀 Quick Start (Production Hosting)
-
-This guide is for users who want to run the bot on a server using Docker for a simple and stable setup.
-
-
-1.  **Clone the Repository:**
-
-Bash
-```
-git clone https://github.com/totte94/Cajans-musikbot.git
-cd Cajans-musikbot
-```
-
-2.  **Create and Configure `.env` File:** Create a `.env` file and fill it with your bot's token and IDs. See the **"Configuration Guide"** section below for detailed instructions on how to get these values.
-
-3.  **Build and Run with Docker:**
-
-Bash
-
-```
-# This command builds the image and starts the container in the background.
-docker-compose up --build -d
-```
-
-Your bot is now online! To manage the container, use `docker-compose down` to stop it or `docker-compose logs -f` to view logs.
-
-----------  
-
-## 👨‍💻 Developer Guide
-
-This guide is for those who want to modify the bot's code, add new commands, or understand its architecture.
-
-### Prerequisites
-- [Node.js](https://nodejs.org/en/) (v16.9.0 or higher)
-- [pnpm](https://pnpm.io/installation) (or npm/yarn)
-- [Git](https://git-scm.com/downloads)
-
-### Project Structure
-
-  
-
-The project is organized into logical modules to keep the code clean and maintainable.
-
-  
-
--  `src/`
-
--  `commands/`: Contains all individual command files. Each file exports a `data` (the command definition) and `execute` (the command logic) property.
-
--  `app.ts`: The main application entry point. It sets up the Discord client, loads all commands from the `commands` folder, and listens for interactions.
-
--  `player.ts`: The core music logic. It manages the server queues, handles song playback with `@discordjs/voice`, and interfaces with `yt-dlp`.
-
--  `deploy-commands.ts`: A utility script to register your slash commands with Discord's API. You only run this when you add or modify a command's definition.
-
--  `types.ts`: Contains shared TypeScript interfaces used across the project, like `Song` and `GuildQueue`, ensuring type safety.
-
-### Development Workflow
-**1. Setup & Installation**
-Clone the repository and install the dependencies.
-
-Bash
-```
+```bash
 git clone https://github.com/totte94/Cajans-musikbot.git
 cd Cajans-musikbot
 pnpm install
 ```
 
+### Step 2: Configure Your `.env` File
 
-**2. Configuration (`.env` file)**
+The bot requires secret keys to function. Create a `.env` file by copying the example file.
 
-  
-
-Create your `.env` file by copying the example.
-
-  
-
-Bash
-```
+```bash
 cp .env.example .env
 ```
 
-Now, fill in the three required values.
-
-  
+Now, open the new `.env` file and fill in the values. See the detailed guide below on how to find your keys.
 
 #### 🔑 Configuration Guide
 
-  
-
->  **1. `DISCORD_TOKEN`**
-
+> **1. `DISCORD_TOKEN`**
 >
-
->  >  **Warning:** Your Discord Token is a super-secret password. Never share it with anyone or post it online.
-
+> > **Warning:** Your Discord Token is a super-secret password. Never share it with anyone or post it online.
 >
-
->  - Go to the [Discord Developer Portal](https://discord.com/developers/applications) and create a **"New Application"**.
-
->  - Navigate to the **"Bot"** tab, click **"Reset Token"**, and copy the token.
-
+>   - Go to the [Discord Developer Portal](https://discord.com/developers/applications) and create a **"New Application"**.
+>   - Navigate to the **"Bot"** tab, click **"Reset Token"**, and copy the token.
 >
-
-> ----------
-
+> -----
 >
-
->  **2. `CLIENT_ID` (Application ID)**
-
+> **2. `CLIENT_ID` (Application ID)**
 >
-
->  - In the Developer Portal, go to **"General Information"** and copy the **"Application ID"**.
-
+>   - In the Developer Portal, go to **"General Information"** and copy the **"Application ID"**.
+>   - 
 >
-
-> ----------
-
+> -----
 >
-
->  **3. `GUILD_ID` (Server ID)**
-
+> **3. `GUILD_ID` (Server ID for Development)**
 >
+>   - In the Discord app, enable **Developer Mode** (User Settings -\> Advanced).
+>   - Right-click on your private development server and click **"Copy Server ID"**.
+>   - This is used for instantly testing command updates. For a public deployment, you will comment this line out.
 
->  - In the Discord app, enable **Developer Mode** (User Settings -> Advanced).
+### Step 3: Invite the Bot to Your Server
 
->  - Right-click on your development server and click **"Copy Server ID"**.
-
-  
-
-**3. Invite the Bot**
-
-  
-
-Use the following URL, replacing `YOUR_CLIENT_ID` with your bot's ID, to invite it to your development server. This URL includes the necessary `applications.commands` scope.
-
-  
+Use the following URL, replacing `YOUR_CLIENT_ID` with the ID you just copied, to invite the bot to your server. This link includes the necessary permissions to create slash commands.
 
 `https://discord.com/api/oauth2/authorize?client_id=YOUR_CLIENT_ID&permissions=8&scope=bot%20applications.commands`
 
-  
+### Step 4: Deploy Slash Commands (Mandatory First-Time Setup)
 
-**4. How to Add a New Command**
+Before you can use the bot, you must register its slash commands with Discord. **This is a required step.**
 
-  
+The script will automatically deploy commands locally to your test server if `GUILD_ID` is set in `.env`, or globally if it is not.
 
-- Create a new file in `src/commands/`, for example `ping.ts`.
+  - **For Development:** Make sure `GUILD_ID` is set in your `.env` file. Commands will update instantly on this server.
+  - **For Production/Public Use:** Comment out or remove the `GUILD_ID` line in `.env`. Commands will be deployed globally and can take up to an hour to appear on all servers.
 
-- Use this template as a starting point:
+Run the deployment script from your terminal:
 
-  
-
-
-
-  
-Typescript
-```
-import { SlashCommandBuilder, ChatInputCommandInteraction } from 'discord.js';
-
-export const data = new SlashCommandBuilder()
-	.setName('ping')
-	.setDescription('Replies with Pong!');
-
-export async function execute(interaction: ChatInputCommandInteraction) {
-	await interaction.reply('Pong!');
-}
+```bash
+pnpm deploy:commands
 ```
 
+### Step 5: Run the Bot
 
-**5. Running the Bot in Development**
+Now you are ready to start the bot.
 
-  
+#### For Development
 
-Start the bot using the `dev` script, which uses `ts-node` to run your TypeScript code directly.
+Run the bot in development mode using `ts-node`. It will automatically watch for code changes.
 
-Bash
-```
+```bash
 pnpm dev
 ```
 
-  
+#### For Production (Docker)
 
-Your bot will log in, and you can now test your new command in your server!
+For a stable, 24/7 deployment, use Docker. This uses the compiled JavaScript version of your code for better performance.
+
+```bash
+docker-compose up --build -d
+```
+
+Your bot is now online and ready to use\!
+
+-----
+
+## ⚙️ Developer Workflow: When to Re-Deploy Commands
+
+You **do not** need to run `pnpm deploy:commands` every time you change the code.
+
+**You ONLY need to run `pnpm deploy:commands` when you change a command's *definition*, such as:**
+
+  - Creating a new command file.
+  - Deleting a command file.
+  - Changing a command's `name` or `description`.
+  - Adding, removing, or changing a command's `options`.
+
+If you only change the logic *inside* a command's `execute` function (like fixing a bug or changing a reply message), you just need to **restart the bot** (`pnpm dev` or `docker-compose restart`).
